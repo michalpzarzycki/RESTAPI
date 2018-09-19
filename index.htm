@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang='pl' ng-app="mainApp">
+  <head>
+
+    <meta charset="utf-8">
+    <title>REST API v1.4</title>
+
+
+  </head>
+    
+     <body ng-controller="MainController">
+<div>
+        <input type=button ng-click="search('posts')" value='POSTY'> 
+        <input type=button ng-click="search('comments')" value='KOMENTARZE'> 
+        <input type=button ng-click="search('albums')" value='ALBUMY'> 
+        <input type=button ng-click="search('photos')" value='ZDJĘCIA'> 
+        <input type=button ng-click="search('todos')" value='DO ZROBIENIA'> 
+        <input type=button ng-click="search('users')" value='UŻYTKOWNICY'> </div>
+  
+
+   
+    <label> Wywietlono {{apis.length}} wyników. Szukasz czegoś konkretnego?</label>
+    <input  type="search" ng-model="searchFilter" placeholder="szukaj..." />
+     
+      <table >
+          <tr>
+              <td>ID</td> 
+              <td>TYTUŁ</td>
+              <td>ZAWARTOŚĆ</td> </tr>
+          <tr ng-repeat="x in apis | filter:searchFilter">
+              <td>{{x.id}}</td>
+              <td>{{x.title}}</td>
+              <td>{{x.body}}</td>
+          </tr></table>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+    <script>
+       
+    var app = angular.module('mainApp', []);
+    app.controller('MainController', ['$scope', '$http', function($scope, $http){
+    $scope.search = function(name) {
+          $http.get('https://jsonplaceholder.typicode.com/' + name).then(onUserComplete, onError);
+        };
+        
+        var onUserComplete = function(response) {
+            $scope.apis = response.data;
+        };
+        
+        var onError = function(reason) {
+            $scope.error = "ooops, there is an error";
+        };}])</script>
+  
+       
+
+  </body>
+</html>
