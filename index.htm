@@ -34,21 +34,7 @@
           </tr></table>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
-    <script>
-       
-    var app = angular.module('mainApp', []);
-    app.controller('MainController', ['$scope', '$http', function($scope, $http){
-    $scope.search = function(name) {
-          $http.get('https://jsonplaceholder.typicode.com/' + name).then(onUserComplete, onError);
-        };
-        
-        var onUserComplete = function(response) {
-            $scope.apis = response.data;
-        };
-        
-        var onError = function(reason) {
-            $scope.error = "ooops, there is an error";
-        };}])</script>
+    <script src="controller.js"></script>
   
        
 
